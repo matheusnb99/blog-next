@@ -1,0 +1,13 @@
+
+
+POST http://localhost:3000/users
+{
+    "email": "email@mail.com",
+    "password": "12345678"
+}
+
+GET http://localhost:3000/sign-in
+{
+    "email": "email@mail.com",
+    "password": "12345678"
+}
