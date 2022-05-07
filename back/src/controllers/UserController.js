@@ -1,3 +1,6 @@
+import UserModel from "../db/models/UserModel.js";
+import hashPassword from "../hashPassword.js";
+
 export const users_get_list = async (req, res) => {
   const users = await UserModel.query()
     .select("id", "email", "firstName", "lastName", "telNumber", "birthDate", "emailValidation")

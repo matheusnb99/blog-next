@@ -1,3 +1,5 @@
+import PostModel from "../db/models/PostModel.js";
+
 export const posts_get_list = async (req, res) => {
   res.send(await PostModel.query().withGraphFetched("[author, comments]"));
 };

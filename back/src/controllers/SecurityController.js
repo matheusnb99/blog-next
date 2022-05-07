@@ -1,5 +1,7 @@
 import UserModel from "../db/models/UserModel.js";
 import hashPassword from "../hashPassword.js";
+import jsonwebtoken from "jsonwebtoken"
+import config from "../config.js"
 
 export const security_signin = async (req, res) => {
   const {

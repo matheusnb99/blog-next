@@ -1,14 +1,15 @@
 import CommentsModel from "../db/models/CommentsModel.js";
+import PostModel from "../db/models/PostModel.js";
 
 export const comments_post = async (req, res) => {
   const {
-    body: { content, commentId, userId },
+    body: { content, postId, userId },
   } = req;
   try {
     const comment = await CommentsModel.query().insertAndFetch({
       content,
       userId,
-      commentId,
+      post_id: postId,
     });
     res.send(comment);
   } catch (err) {
@@ -26,14 +27,18 @@ export const comments_get = async (req, res) => {
     res.send({ status: 404, message: "not found" });
     return;
   }
-  const comment = CommentsModel.query().findById(commentId);
+  const comment = CommentsModel.query().withGraphFetched("[user, posts]");
+
+  comment.findById(commentId);
+  
+
   if (!comment) {
     res.send({ status: 404, message: "not found" });
 
     return;
   }
 
-  res.send(comment);
+  res.send(await comment);
 };
 
 export const comments_delete = async (req, res) => {
@@ -46,8 +51,8 @@ export const comments_delete = async (req, res) => {
     res.status(404).send({ error: "not found" });
     return;
   }
-  CommentsModel.query().where({ id }).delete();
-  res.send("comment deleted");
+  CommentsModel.query().where({ commentId }).delete();
+  res.send({ status: 200, message: "Comment deleted" });
 };
 
 export const comments_update = async (req, res) => {
@@ -56,7 +61,7 @@ export const comments_update = async (req, res) => {
     body: { content },
   } = req;
 
-  const comment = PostModel.query().findById(id);
+  const comment = CommentsModel.query().findById(id);
 
   if (!comment) {
     res.status(404).send({ error: "not found" });
@@ -64,7 +69,7 @@ export const comments_update = async (req, res) => {
     return;
   }
 
-  await CommentModel.query()
+  await CommentsModel.query()
     .update({
       content: content,
     })
