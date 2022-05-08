@@ -1,8 +1,8 @@
-import { Model } from "objection";
-import PostModel from "./PostModel.js";
+import { Model } from "objection"
+import PostModel from "./PostModel.js"
 
 class CategoryModel extends Model {
-  static tableName = "categories";
+  static tableName = "categories"
 
   static get relationMappings() {
     return {
@@ -14,8 +14,8 @@ class CategoryModel extends Model {
           to: "posts.id",
         },
       },
-    };
+    }
   }
 }
 
-export default CategoryModel;
+export default CategoryModel

@@ -1,8 +1,8 @@
-import { Model } from "objection";
-import UserModel from "./UserModel.js";
+import { Model } from "objection"
+import UserModel from "./UserModel.js"
 
 class RoleModel extends Model {
-  static tableName = "roles";
+  static tableName = "roles"
   static get relationMappings() {
     return {
       roles: {
@@ -13,8 +13,8 @@ class RoleModel extends Model {
           to: "users.role_id",
         },
       },
-    };
+    }
   }
 }
 
-export default RoleModel;
+export default RoleModel

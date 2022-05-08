@@ -1,10 +1,10 @@
-import { Model } from "objection";
-import CategoryModel from "./CategoryModel.js";
-import CommentsModel from "./CommentsModel.js";
-import UserModel from "./UserModel.js";
+import { Model } from "objection"
+import CategoryModel from "./CategoryModel.js"
+import CommentsModel from "./CommentsModel.js"
+import UserModel from "./UserModel.js"
 
 class PostModel extends Model {
-  static tableName = "posts";
+  static tableName = "posts"
 
   static get relationMappings() {
     return {
@@ -32,8 +32,8 @@ class PostModel extends Model {
           to: "comments.post_id",
         },
       },
-    };
+    }
   }
 }
 
-export default PostModel;
+export default PostModel

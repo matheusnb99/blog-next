@@ -1,10 +1,20 @@
-import { Model } from "objection";
-import CommentsModel from "./CommentsModel.js";
-import PostModel from "./PostModel.js";
-import RoleModel from "./RoleModel.js";
+import { Model } from "objection"
+import CommentsModel from "./CommentsModel.js"
+import PostModel from "./PostModel.js"
+import RoleModel from "./RoleModel.js"
 
 class UserModel extends Model {
-  static tableName = "users";
+  static tableName = "users"
+
+  // overides default response to not include hash and salt
+  $formatJson(json) {
+    json = super.$formatJson(json)
+    delete json.passwordHash
+    delete json.passwordSalt
+
+    return json
+  }
+
   static get relationMappings() {
     return {
       comments: {
@@ -31,7 +41,8 @@ class UserModel extends Model {
           to: "roles.id",
         },
       },
-    };
+    }
   }
 }
-export default UserModel;
+
+export default UserModel

@@ -1,8 +1,8 @@
-import dotenv from "dotenv";
+import dotenv from "dotenv"
 
 dotenv.config({
   path: process.cwd() + "/.env",
-});
+})
 
 const config = {
   port: process.env.PORT,
@@ -29,5 +29,5 @@ const config = {
       expiresIn: "2 days",
     },
   },
-};
-export default config;
+}
+export default config

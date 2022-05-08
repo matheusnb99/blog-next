@@ -1,11 +1,11 @@
-import faker from "faker";
-import "utf8";
-import hashPassword from "../../hashPassword.js";
+import faker from "faker"
+import "utf8"
+import hashPassword from "../../hashPassword.js"
 
-const rand = (min, max) => Math.floor(Math.random() * max - min + 1 + min);
+const rand = (min, max) => Math.floor(Math.random() * max - min + 1 + min)
 
 export const up = async (knex) => {
-  await knex("roles").insert([{ label: "user" }, { label: "author" }, { label: "admin" }]);
+  await knex("roles").insert([{ label: "user" }, { label: "author" }, { label: "admin" }])
 
   const categories = await knex("categories")
     .insert(
@@ -13,9 +13,9 @@ export const up = async (knex) => {
         name: faker.animal.crocodilia(),
       }))
     )
-    .returning("*");
+    .returning("*")
 
-  const [passwordHash, passwordSalt] = hashPassword("password");
+  const [passwordHash, passwordSalt] = hashPassword("password")
 
   const users = await knex("users")
     .insert(
@@ -29,9 +29,9 @@ export const up = async (knex) => {
         role_id: 1,
       }))
     )
-    .returning("*");
+    .returning("*")
 
-  const products = await knex("posts")
+  await knex("posts")
     .insert(
       [...new Array(3)].map(() => ({
         title: faker.commerce.productName(),
@@ -40,13 +40,12 @@ export const up = async (knex) => {
         category_id: categories[rand(0, categories.length - 1)].id,
       }))
     )
-    .returning("id");
-  console.log(categories[0].id);
-};
+    .returning("id")
+}
 
 export const down = async (knex) => {
-  await knex("posts").del();
-  await knex("categories").del();
-  await knex("users").del();
-  await knex("roles").del();
-};
+  await knex("posts").del()
+  await knex("categories").del()
+  await knex("users").del()
+  await knex("roles").del()
+}

@@ -1,9 +1,9 @@
-import { Model } from "objection";
-import PostModel from "./PostModel.js";
-import UserModel from "./UserModel.js";
+import { Model } from "objection"
+import PostModel from "./PostModel.js"
+import UserModel from "./UserModel.js"
 
 class CommentsModel extends Model {
-  static tableName = "comments";
+  static tableName = "comments"
   static get relationMappings() {
     return {
       user: {
@@ -22,7 +22,8 @@ class CommentsModel extends Model {
           to: "posts.id",
         },
       },
-    };
+    }
   }
 }
-export default CommentsModel;
+
+export default CommentsModel

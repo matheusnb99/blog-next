@@ -1,44 +1,46 @@
-import UserModel from "../db/models/UserModel.js";
-import hashPassword from "../hashPassword.js";
 import jsonwebtoken from "jsonwebtoken"
 import config from "../config.js"
+import UserModel from "../db/models/UserModel.js"
+import hashPassword from "../hashPassword.js"
 
 export const security_signin = async (req, res) => {
   const {
     body: { email, password },
-  } = req;
+  } = req
 
-  const user = await UserModel.query().findOne({ email });
+  const user = await UserModel.query().findOne({ email })
 
   if (!user) {
-    res.status(401).send({ error: "invalid email or password" });
-
-    return;
+    res.status(401).send({ error: "invalid email or password" })
+    
+return
   }
-  const [passwordHash] = hashPassword(password, user.passwordSalt);
+
+  const [passwordHash] = hashPassword(password, user.passwordSalt)
 
   if (passwordHash !== user.passwordHash) {
-    res.status(401).send({ error: "invalid email or password" });
+    res.status(401).send({ error: "invalid email or password" })
 
-    return;
+    return
   }
+
   const jwt = jsonwebtoken.sign({ payload: { userId: user.id } }, config.security.session.secret, {
     expiresIn: config.security.session.expiresIn,
-  });
-  res.send({ jwt });
-};
+  })
+  res.send({ jwt })
+}
 
 export const security_signup = async (req, res) => {
   const {
     body: { email, password },
-  } = req;
+  } = req
 
-  const [passwordHash, passwordSalt] = hashPassword(password);
+  const [passwordHash, passwordSalt] = hashPassword(password)
   const user = await UserModel.query().insertAndFetch({
     email,
     passwordHash,
     passwordSalt,
     role_id: 1,
-  });
-  res.send(user);
-};
+  })
+  res.send(user)
+}
