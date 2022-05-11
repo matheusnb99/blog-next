@@ -1,5 +1,5 @@
 import express from "express"
-import { posts_delete, posts_get_description, posts_get_list, posts_post } from "../controllers/PostController.js"
+import { posts_delete, posts_get_description, posts_get_list, posts_post } from "../controllers/postController.js"
 
 const router = express.Router()
 

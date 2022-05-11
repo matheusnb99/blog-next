@@ -1,5 +1,5 @@
 import express from "express"
-import { security_signin, security_signup } from "../controllers/SecurityController.js"
+import { security_signin, security_signup } from "../controllers/securityController.js"
 
 const router = express.Router()
 
