@@ -12,8 +12,8 @@ export const security_signin = async (req, res) => {
 
   if (!user) {
     res.status(401).send({ error: "invalid email or password" })
-    
-return
+
+    return
   }
 
   const [passwordHash] = hashPassword(password, user.passwordSalt)
@@ -35,6 +35,14 @@ export const security_signup = async (req, res) => {
     body: { email, password },
   } = req
 
+  const userExists = await UserModel.query().findOne("email", email)
+
+  if (userExists) {
+    res.status(403).send({ error: "invalid email or password" })
+
+    return
+  }
+
   const [passwordHash, passwordSalt] = hashPassword(password)
   const user = await UserModel.query().insertAndFetch({
     email,
@@ -42,5 +50,9 @@ export const security_signup = async (req, res) => {
     passwordSalt,
     role_id: 1,
   })
-  res.send(user)
+
+  const jwt = jsonwebtoken.sign({ payload: { userId: user.id } }, config.security.session.secret, {
+    expiresIn: config.security.session.expiresIn,
+  })
+  res.send({ jwt })
 }
