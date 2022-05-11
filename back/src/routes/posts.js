@@ -1,12 +1,11 @@
+import express from "express"
 import { posts_delete, posts_get_description, posts_get_list, posts_post } from "../controllers/PostController.js"
 
-const postsRoute = ({ app }) => {
-  app.post("/posts", posts_post)
+const router = express.Router()
 
-  app.get("/posts", posts_get_list)
+router.post("/", posts_post)
+router.get("/", posts_get_list)
+router.get("/:postId", posts_get_description)
+router.delete("/:postId", posts_delete)
 
-  app.get("/posts/:postId", posts_get_description)
-
-  app.delete("/posts/:postId", posts_delete)
-}
-export default postsRoute
+export { router as postsRoute }

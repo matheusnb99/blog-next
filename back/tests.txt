@@ -1,6 +1,41 @@
 
+POST http://localhost:3050/comments
+{
+    "postId": "1",
+    "content":"test@mail.com",
+    "userId": "2"
+}
+GET http://localhost:3050/comments/1
 
-POST http://localhost:3000/users
+PUT http://localhost:3050/comments/1
+{
+    "content":"loerm ipsum",
+}
+
+DELETE http://localhost:3050/comments/1
+
+GET http://localhost:3050/posts
+
+GET http://localhost:3050/posts/1
+
+POST http://localhost:3050/posts
+{
+    "content":"Ergonomic executive chair upholstered in bonded black leather and PVC padded seat and back for all-day comfort and support",
+    "title": "Lorem",
+    "userId": "4"
+}
+
+DELETE http://localhost:3050/posts/1
+
+
+get("/users
+get("/users/:userId", auth
+put("/users/:userId
+delete("/users/:userId
+
+
+
+GET http://localhost:3000/sign-up
 {
     "email": "email@mail.com",
     "password": "12345678"

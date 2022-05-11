@@ -1,7 +1,9 @@
+import express from "express"
 import { security_signin, security_signup } from "../controllers/SecurityController.js"
 
-const securityRoute = ({ app }) => {
-  app.post("/sign-in", security_signin)
-  app.post("/sign-up", security_signup)
-}
-export default securityRoute
+const router = express.Router()
+
+router.post("/sign-in", security_signin)
+router.post("/sign-up", security_signup)
+
+export { router as securityRoute }

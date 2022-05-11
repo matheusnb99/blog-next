@@ -1,0 +1,2 @@
+change delete routes
+add perma delete routes
