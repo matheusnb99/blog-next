@@ -56,6 +56,25 @@ export const comments_delete = async (req, res) => {
     return
   }
 
+  comment.$query().where({ id: commentId }).update({
+    deleted_at: new Date(),
+  })
+  res.send({ status: 200, message: "Comment deleted" })
+}
+
+export const comments_delete_from_database = async (req, res) => {
+  const {
+    params: { commentId },
+  } = req
+
+  const comment = await CommentsModel.query().findById(commentId)
+
+  if (!comment) {
+    res.status(404).send({ error: "not found" })
+
+    return
+  }
+
   CommentsModel.query().where({ commentId }).delete()
   res.send({ status: 200, message: "Comment deleted" })
 }
