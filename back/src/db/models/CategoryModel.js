@@ -10,8 +10,8 @@ class CategoryModel extends Model {
         relation: Model.HasOneRelation,
         modelClass: PostModel,
         join: {
-          from: "comments.postId",
-          to: "posts.id",
+          from: "posts.category_id",
+          to: "categories.id",
         },
       },
     }
